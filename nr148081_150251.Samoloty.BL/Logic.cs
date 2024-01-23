@@ -9,7 +9,7 @@ namespace nr148081_150251.Samoloty.BL
     {
         private IDAO dao;
 
-        public Logic(String daoPath)
+        public Logic(string daoPath)
         {
             Assembly a = Assembly.UnsafeLoadFrom(daoPath);
             Type? classToCreate = null;
@@ -19,6 +19,8 @@ namespace nr148081_150251.Samoloty.BL
                 if (type.IsAssignableTo(typeof(IDAO)))
                 {
                     classToCreate = type;
+                    break;
+
                 }
             }
 

@@ -1,0 +1,19 @@
+﻿@using nr148081_150251.Samoloty.Web.Helpers;
+@using nr148081_150251.Samoloty.Web.Models.Plane
+
+@model IEnumerable<PlaneViewModel>
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Welcome</h1>
+   
+    @{
+        foreach (var plane in Model)
+        {
+            <p>Model: @plane.Model</p>
+            <p>Type: @plane.Type.GetDisplayName()</p>
+        }
+    }
+</div>

@@ -6,4 +6,21 @@
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\nr148081_150251.Samoloty.BL\nr148081_150251.Samoloty.BL.csproj" />
+    <ProjectReference Include="..\nr148081_150251.Samoloty.Core\nr148081_150251.Samoloty.Core.csproj" />
+    <ProjectReference Include="..\nr148081_150251.Samoloty.DAOMock\nr148081_150251.Samoloty.DAOMock.csproj" />
+    <ProjectReference Include="..\nr148081_150251.Samoloty.DAOSql\nr148081_150251.Samoloty.DAOSql.csproj" />
+    <ProjectReference Include="..\nr148081_150251.Samoloty.Interfaces\nr148081_150251.Samoloty.Interfaces.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Models\Company\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="12.0.1" />
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.1" />
+  </ItemGroup>
+
 </Project>
