@@ -7,16 +7,16 @@ using System.Threading.Tasks;
 using nr148081_150251.Samoloty.Core;
 using nr148081_150251.Samoloty.Interfaces;
 
-namespace nr148081_150251.Samoloty.DAOSql
+namespace nr148081_150251.Samoloty.DAOMock
 {
     public class Plane : IPlane
     {
-        public Guid Id { get; set; }
+        public int Id { get; set; }
         public string Model { get; set; }
         public decimal MaximumSpeed { get; set; }
         public PlaneType Type { get; set; }
-        public Company Company { get; set; }
-        ICompany IPlane.Company { get => Company; set => Company = (Company)value ; }
+        public ICompany Company { get; set; }
+   
 
     }
 

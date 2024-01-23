@@ -1,48 +1,69 @@
-﻿using nr148081_150251.Samoloty.Interfaces;
+﻿using nr148081_150251.Samoloty.Core;
+using nr148081_150251.Samoloty.Interfaces;
 
 namespace nr148081_150251.Samoloty.DAOMock
 {
     public class MockDAO : IDAO
     {
+        private List<ICompany> _companyList;
+        private int idCompany = 0;
+        private List<IPlane> _planeList;
+        private int idPlane = 0;
+        public MockDAO()
+        {
+            _companyList = new List<ICompany>()
+            {
+                new Company() {Name = "Name1", Year = 2001, Id = ++idCompany },
+                new Company() {Name = "Name2", Year = 2011, Id = ++idCompany }
+            };
+
+            _planeList = new List<IPlane>()
+            {
+                new Plane {Model = "Model1", Company= _companyList[0], Type=PlaneType.Cargo, MaximumSpeed=500, Id=++idPlane },
+                new Plane {Model = "Model2", Company= _companyList[0], Type=PlaneType.Passenger, MaximumSpeed=400, Id=++idPlane},
+                new Plane {Model = "Model3", Company= _companyList[1], Type=PlaneType.Private, MaximumSpeed=300 , Id=++idPlane},
+            };
+        }
+
 
         public void DeleteCompany(ICompany company)
         {
-            throw new NotImplementedException();
+            _companyList.Remove(company);
         }
 
         public void DeletePlane(IPlane plane)
         {
-            throw new NotImplementedException();
+            _planeList.Remove(plane);
         }
 
         public IEnumerable<ICompany> GetCompanies()
         {
-            throw new NotImplementedException();
+            return _companyList;
         }
 
         public IEnumerable<IPlane> GetPlanes()
         {
-            throw new NotImplementedException();
+            return _planeList;
         }
 
         public ICompany NewCompany()
         {
-            throw new NotImplementedException();
+            return new Company() { Id = ++idCompany };
         }
 
         public IPlane NewPlane()
         {
-            throw new NotImplementedException();
+            return new Plane() { Id = ++idPlane };
         }
 
         public void SaveCompany(ICompany company)
         {
-            throw new NotImplementedException();
+            _companyList.Add(company);
         }
 
         public void SavePlane(IPlane plane)
         {
-            throw new NotImplementedException();
+            _planeList.Add(plane);
         }
     }
 }

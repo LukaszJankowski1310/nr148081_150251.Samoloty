@@ -8,7 +8,6 @@ namespace nr148081_150251.Samoloty.Interfaces
 {
     public interface ICompany
     {
-        public Guid Id { get; set; }
         public string Name { get; set; }
         public int Year { get; set; }
     }

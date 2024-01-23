@@ -16,6 +16,9 @@ namespace nr148081_150251.Samoloty
             }
             var blc = new Logic(libraryName);
 
+            var companies = blc.GetCompanies();
+            var planes = blc.GetPlanes();
+
             
 
 

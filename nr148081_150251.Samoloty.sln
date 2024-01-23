@@ -15,6 +15,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "nr148081_150251.Samoloty.DA
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "nr148081_150251.Samoloty.DAOSql", "nr148081_150251.Samoloty.DAOSql\nr148081_150251.Samoloty.DAOSql.csproj", "{8E299BE9-F362-4D42-866C-205EEFD1A1FB}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "nr148081_150251.Samoloty.Web", "nr148081_150251.Samoloty.Web\nr148081_150251.Samoloty.Web.csproj", "{28EC60C4-9A5C-4EC4-89F9-67CBB7F574AD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -45,6 +47,10 @@ Global
 		{8E299BE9-F362-4D42-866C-205EEFD1A1FB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8E299BE9-F362-4D42-866C-205EEFD1A1FB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8E299BE9-F362-4D42-866C-205EEFD1A1FB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{28EC60C4-9A5C-4EC4-89F9-67CBB7F574AD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{28EC60C4-9A5C-4EC4-89F9-67CBB7F574AD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{28EC60C4-9A5C-4EC4-89F9-67CBB7F574AD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{28EC60C4-9A5C-4EC4-89F9-67CBB7F574AD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
