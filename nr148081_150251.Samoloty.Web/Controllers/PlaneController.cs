@@ -1,7 +1,13 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using nr148081_150251.Samoloty.BL;
+using nr148081_150251.Samoloty.Core;
+using nr148081_150251.Samoloty.Interfaces;
+using nr148081_150251.Samoloty.Web.Helpers;
+using nr148081_150251.Samoloty.Web.Models;
 using nr148081_150251.Samoloty.Web.Models.Plane;
+using System.Diagnostics;
 
 namespace nr148081_150251.Samoloty.Web.Controllers
 {
@@ -16,7 +22,7 @@ namespace nr148081_150251.Samoloty.Web.Controllers
             _mapper = mapper;
         }
 
-        public IActionResult Index()
+        public IActionResult Index(string sortField)
         {
             var planes = _logic.GetPlanes();
             IEnumerable<PlaneViewModel> planesViewModel = new List<PlaneViewModel>();
@@ -25,29 +31,96 @@ namespace nr148081_150251.Samoloty.Web.Controllers
         }
 
         [HttpGet]
-        public IActionResult Add(int id)
+        public IActionResult Create()
         {
+            FillViewBag();
+
             return View();
         }
 
         [HttpPost]
-        public IActionResult Add(PlaneViewModel planeViewModel)
+        public IActionResult Create(PlaneEditViewModel planeViewModel)
         {
-            return View();
+            if (!ModelState.IsValid)
+            {
+                FillViewBag();
+                return View(planeViewModel);
+            }
+
+            var plane = _logic.NewPlane();
+            Map(plane, planeViewModel);
+
+            _logic.SavePlane(plane);
+
+            return RedirectToAction("Index");
         }
 
 
         [HttpGet]
         public IActionResult Edit(int id) 
         {
-            return View();
+            var plane = _logic.GetPlane(id);
+            if (plane == null)
+            {
+                return NotFound();
+            }
+                   
+            var planeViewModel = _mapper.Map<PlaneEditViewModel>(plane);
+            FillViewBag();
+            return View(planeViewModel);
         }
         
         [HttpPost]
-        public IActionResult Edit(PlaneViewModel planeViewModel) 
+        public IActionResult Edit(PlaneEditViewModel planeViewModel) 
         {
+            if (!ModelState.IsValid)
+            {
+                FillViewBag();
+                return View(planeViewModel);
+            }
 
-            return View();
+            var plane = _logic.GetPlane(planeViewModel.Id);
+            if (plane == null)
+            {
+                return NotFound();
+            }
+            Map(plane, planeViewModel);
+            return RedirectToAction("Index");
         }
+
+
+        [HttpPost, ActionName("Delete")]
+        public IActionResult Delete(int id)
+        {
+            var plane = _logic.GetPlane(id);
+            if (plane != null)
+            {
+             _logic.DeletePlane(plane);
+            }
+
+           return RedirectToAction("Index");
+        }
+
+
+
+        private void FillViewBag()
+        {
+            var comapnies = _logic.GetCompanies();
+
+            ViewBag.Types = Enum.GetValues(typeof(PlaneTypeViewModel)).Cast<PlaneTypeViewModel>()
+                .Select(e => new SelectListItem { Value = e.ToString(), Text = e.GetDisplayName() })
+                     .ToList();
+            ViewBag.Companies = new SelectList(comapnies, "Id", "Name");
+        }
+
+
+        private void Map(IPlane plane, PlaneEditViewModel planeViewModel)
+        {
+            plane.Model = planeViewModel.Model;
+            plane.Type = _mapper.Map<PlaneType>(planeViewModel.Type);
+            plane.MaximumSpeed = planeViewModel.MaximumSpeed;
+            plane.Company = _logic.GetCompany(planeViewModel.Company.Id);
+        }
+
     }
 }

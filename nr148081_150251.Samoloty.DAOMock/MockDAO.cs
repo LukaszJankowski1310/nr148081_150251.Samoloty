@@ -14,7 +14,10 @@ namespace nr148081_150251.Samoloty.DAOMock
             _companyList = new List<ICompany>()
             {
                 new Company() {Name = "Name1", Year = 2001, Id = ++idCompany },
-                new Company() {Name = "Name2", Year = 2011, Id = ++idCompany }
+                new Company() {Name = "Name2", Year = 2011, Id = ++idCompany },
+                new Company() {Name = "Name3", Year = 2011, Id = ++idCompany },
+                new Company() {Name = "Name4", Year = 2011, Id = ++idCompany },
+                new Company() {Name = "Name5", Year = 2011, Id = ++idCompany },
             };
 
             _planeList = new List<IPlane>()
@@ -41,6 +44,16 @@ namespace nr148081_150251.Samoloty.DAOMock
             return _companyList;
         }
 
+        public ICompany? GetCompany(int id)
+        {
+            return _companyList.FirstOrDefault(x => x.Id == id);
+        }
+
+        public IPlane? GetPlane(int id)
+        {
+            return _planeList.FirstOrDefault(x => x.Id == id);
+        }
+
         public IEnumerable<IPlane> GetPlanes()
         {
             return _planeList;
@@ -54,6 +67,18 @@ namespace nr148081_150251.Samoloty.DAOMock
         public IPlane NewPlane()
         {
             return new Plane() { Id = ++idPlane };
+        }
+
+        public void UpdatePlane(IPlane plane)
+        {
+            var planeToUpdate = this.GetPlane(plane.Id);
+            if (planeToUpdate != null)
+            {
+                planeToUpdate.Model = plane.Model;
+                planeToUpdate.Company = _companyList.FirstOrDefault(x => x.Id == plane.Company.Id);
+                planeToUpdate.MaximumSpeed = plane.MaximumSpeed;
+                planeToUpdate.Type = plane.Type;
+            }
         }
 
         public void SaveCompany(ICompany company)

@@ -1,5 +1,8 @@
 ﻿using AutoMapper;
+using nr148081_150251.Samoloty.Core;
 using nr148081_150251.Samoloty.Interfaces;
+using nr148081_150251.Samoloty.Web.Models;
+using nr148081_150251.Samoloty.Web.Models.Company;
 using nr148081_150251.Samoloty.Web.Models.Plane;
 
 namespace nr148081_150251.Samoloty.Web.Mapper
@@ -8,6 +11,7 @@ namespace nr148081_150251.Samoloty.Web.Mapper
     {
         public MapperConfig()
         {
+            MapCompanies();
             MapPlanes();
         }
 
@@ -16,10 +20,16 @@ namespace nr148081_150251.Samoloty.Web.Mapper
         {
             CreateMap<IPlane, PlaneViewModel>()
                 .ForMember(dest => dest.CompanyName, opt => opt.MapFrom(src => src.Company.Name));
+            CreateMap<IPlane, PlaneEditViewModel>();
+
+            CreateMap<PlaneType, PlaneTypeViewModel>().ReverseMap();
+
         }
 
         private void MapCompanies()
-        {            
+        {
+            CreateMap<ICompany, CompanyViewModel>();          
+            CreateMap<ICompany, EntityViewModel>();
         }
 
     }

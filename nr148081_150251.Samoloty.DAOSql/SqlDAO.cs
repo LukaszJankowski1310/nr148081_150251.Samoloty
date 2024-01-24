@@ -28,6 +28,16 @@ namespace nr148081_150251.Samoloty.DAOSql
             return _dbContext.Companies;
         }
 
+        public ICompany? GetCompany(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IPlane? GetPlane(int id)
+        {
+            throw new NotImplementedException();
+        }
+
         public IEnumerable<IPlane> GetPlanes()
         {
             return _dbContext.Planes;
@@ -53,6 +63,11 @@ namespace nr148081_150251.Samoloty.DAOSql
         {
             _dbContext.Planes.Add((Plane) plane);
             _dbContext.SaveChanges();
+        }
+
+        public void UpdatePlane(IPlane plane)
+        {
+            throw new NotImplementedException();
         }
     }
 }

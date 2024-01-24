@@ -1,0 +1,22 @@
+﻿@using nr148081_150251.Samoloty.Web.Helpers;
+@using nr148081_150251.Samoloty.Web.Models.Plane
+
+@model PlaneEditViewModel
+@{
+    ViewData["Title"] = "Samoloty / Edytuj";
+}
+
+
+ <div class="container mt-4">
+    <h2>Edycja samolotu</h2>
+
+    <form asp-action="Edit" method="post">
+        <input type="hidden" asp-for="Id" /> 
+
+        @Html.Partial("CreateOrEdit", Model)
+
+        <button type="submit" class="btn btn-primary">Zapisz zmiany</button>
+        <a asp-action="Index" class="btn btn-secondary">Powrót</a>
+    </form>
+</div>
+

@@ -71,6 +71,20 @@ namespace nr148081_150251.Samoloty.BL
             dao.DeletePlane(plane);
         }
 
+        public IPlane? GetPlane(int id)
+        {
+            return dao.GetPlane(id);
+        }
+
+        public ICompany? GetCompany(int id)
+        {
+            return dao.GetCompany(id);
+        }
       
+        public void UpdatePlane(IPlane plane)
+        {
+            dao.UpdatePlane(plane);
+        }
+
     }
 }

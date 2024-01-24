@@ -17,7 +17,7 @@ namespace nr148081_150251.Samoloty.DAOSql
         public PlaneType Type { get; set; }
         public Company Company { get; set; }
         ICompany IPlane.Company { get => Company; set => Company = (Company)value ; }
-
+        int IPlane.Id { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
     }
 
 }
