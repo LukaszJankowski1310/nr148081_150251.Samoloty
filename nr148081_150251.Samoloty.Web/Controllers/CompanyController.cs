@@ -64,6 +64,8 @@ namespace nr148081_150251.Samoloty.Web.Controllers
 
             _logic.SaveCompany(company);
 
+            _logic.Commit();
+
             return RedirectToAction("Index");
         }
 
@@ -97,7 +99,9 @@ namespace nr148081_150251.Samoloty.Web.Controllers
             }
 
             _mapper.Map(companyViewModel, company);
-       
+
+            _logic.Commit();
+
             return RedirectToAction("Index");
         }
 
@@ -113,6 +117,7 @@ namespace nr148081_150251.Samoloty.Web.Controllers
             try
             {
                 _logic.DeleteCompany(company);
+                _logic.Commit();
             }
             catch (Exception ex)
             {

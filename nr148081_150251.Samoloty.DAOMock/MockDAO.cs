@@ -28,7 +28,6 @@ namespace nr148081_150251.Samoloty.DAOMock
             };
         }
 
-
         public void DeleteCompany(ICompany company)
         {
             var plane = _planeList.FirstOrDefault(x => x.Company.Id == company.Id);
@@ -65,26 +64,6 @@ namespace nr148081_150251.Samoloty.DAOMock
             return _planeList;
         }
 
-        public IEnumerable<IPlane> GetPlanes(string sortField)
-        {
-            switch(sortField)
-            {
-                case "Model":
-                    return _planeList.OrderBy(x => x.Model);
-                    
-                case "Typ":
-                    return _planeList.OrderBy(x => x.Type); 
-                    
-                case "CompanyName":
-                    return _planeList.OrderBy(x => x.Company.Name);
-                    
-                case "MaximumSpeed":
-                    return _planeList.OrderBy(x => x.MaximumSpeed);
-                    
-                default: return _planeList;
-            }
-        }
-
         public ICompany NewCompany()
         {
             return new Company() { Id = ++idCompany };
@@ -95,18 +74,7 @@ namespace nr148081_150251.Samoloty.DAOMock
             return new Plane() { Id = ++idPlane };
         }
 
-        public void UpdatePlane(IPlane plane)
-        {
-            var planeToUpdate = this.GetPlane(plane.Id);
-            if (planeToUpdate != null)
-            {
-                planeToUpdate.Model = plane.Model;
-                planeToUpdate.Company = _companyList.FirstOrDefault(x => x.Id == plane.Company.Id);
-                planeToUpdate.MaximumSpeed = plane.MaximumSpeed;
-                planeToUpdate.Type = plane.Type;
-            }
-        }
-
+   
         public void SaveCompany(ICompany company)
         {
             _companyList.Add(company);
@@ -117,6 +85,9 @@ namespace nr148081_150251.Samoloty.DAOMock
             _planeList.Add(plane);
         }
 
-     
+        public void Commit()
+        {
+            return;
+        }
     }
 }

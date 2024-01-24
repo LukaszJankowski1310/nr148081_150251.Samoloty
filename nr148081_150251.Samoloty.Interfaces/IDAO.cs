@@ -15,18 +15,13 @@ namespace nr148081_150251.Samoloty.Interfaces
         ICompany? GetCompany(int id);
         void SaveCompany(ICompany company);
         void DeleteCompany(ICompany company);
-
         IEnumerable<IPlane> GetPlanes();
-
-        IEnumerable<IPlane> GetPlanes(string sortField);
-
         IPlane? GetPlane(int id);
         IPlane NewPlane();
         void SavePlane(IPlane plane);
         void DeletePlane(IPlane plane);
 
-        void UpdatePlane(IPlane plane);
-
+        void Commit();
     }
 }
 

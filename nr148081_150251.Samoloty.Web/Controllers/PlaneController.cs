@@ -65,6 +65,8 @@ namespace nr148081_150251.Samoloty.Web.Controllers
 
             _logic.SavePlane(plane);
 
+            _logic.Commit();
+
             return RedirectToAction("Index");
         }
 
@@ -98,6 +100,7 @@ namespace nr148081_150251.Samoloty.Web.Controllers
                 return NotFound();
             }
             Map(plane, planeViewModel);
+            _logic.Commit();
             return RedirectToAction("Index");
         }
 
@@ -109,6 +112,7 @@ namespace nr148081_150251.Samoloty.Web.Controllers
             if (plane != null)
             {
              _logic.DeletePlane(plane);
+             _logic.Commit();
             }
 
            return RedirectToAction("Index");

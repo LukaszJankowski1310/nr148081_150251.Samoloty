@@ -11,13 +11,15 @@ namespace nr148081_150251.Samoloty.DAOSql
 {
     public class Plane : IPlane
     {
-        public Guid Id { get; set; }
+        public int Id { get; set; }
         public string Model { get; set; }
         public decimal MaximumSpeed { get; set; }
         public PlaneType Type { get; set; }
-        public Company Company { get; set; }
-        ICompany IPlane.Company { get => Company; set => Company = (Company)value ; }
-        int IPlane.Id { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public ICompany Company { get; set; }
+
+        public int CompanyId { get; set; }
+
+
     }
 
 }

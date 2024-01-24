@@ -17,8 +17,29 @@ namespace nr148081_150251.Samoloty.DAOSql
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             //  optionsBuilder.UseSqlite(_configuration.GetConnectionString("sqlite"));
-            optionsBuilder.UseSqlite("Data source=planes");
+            optionsBuilder.UseSqlite("Data source=planess");
         }
+
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Plane>()
+                .HasKey(p => p.Id);
+
+
+            modelBuilder.Entity<Plane>()
+                .Property(p => p.CompanyId);
+
+            modelBuilder.Entity<Plane>()
+              .HasOne(p => (Company)p.Company) 
+              .WithMany()
+              .HasForeignKey(p => p.CompanyId);
+
+
+            modelBuilder.Entity<Company>()
+                .HasKey(c => c.Id);
+        }
+
 
         public DbSet<Plane> Planes { get; set; }
         public DbSet<Company> Companies { get; set; }

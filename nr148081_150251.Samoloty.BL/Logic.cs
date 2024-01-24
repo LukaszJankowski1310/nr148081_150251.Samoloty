@@ -42,12 +42,7 @@ namespace nr148081_150251.Samoloty.BL
         {
             return dao.GetPlanes();
         }
-
-        public IEnumerable<IPlane> GetPlanes(string sortField)
-        {
-            return dao.GetPlanes(sortField);
-        }
-
+  
         public ICompany NewCompany()
         {
             return dao.NewCompany();
@@ -88,9 +83,9 @@ namespace nr148081_150251.Samoloty.BL
             return dao.GetCompany(id);
         }
       
-        public void UpdatePlane(IPlane plane)
+        public void Commit()
         {
-            dao.UpdatePlane(plane);
+            dao.Commit();   
         }
 
     }
