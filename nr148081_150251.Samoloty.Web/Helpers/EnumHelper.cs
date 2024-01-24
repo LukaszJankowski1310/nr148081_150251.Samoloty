@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.AspNetCore.Mvc.Rendering;
+using System.ComponentModel.DataAnnotations;
 using System.Reflection;
 
 namespace nr148081_150251.Samoloty.Web.Helpers
@@ -13,5 +14,19 @@ namespace nr148081_150251.Samoloty.Web.Helpers
 
             return displayAttribute?.Name ?? value.ToString();
         }
+
+        public static List<SelectListItem> GetEnumSelectList<TEnum>()
+         where TEnum : Enum
+        {
+            return Enum.GetValues(typeof(TEnum))
+                .Cast<TEnum>()
+                .Select(enumValue => new SelectListItem
+                {
+                    Value = enumValue.ToString(),
+                    Text = enumValue.GetDisplayName() // Use the GetDisplayName extension method to get a display name if available
+                })
+                .ToList();
+        }
+
     }
 }

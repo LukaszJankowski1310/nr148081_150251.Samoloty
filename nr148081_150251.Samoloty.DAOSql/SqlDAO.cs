@@ -43,6 +43,11 @@ namespace nr148081_150251.Samoloty.DAOSql
             return _dbContext.Planes;
         }
 
+        public IEnumerable<IPlane> GetPlanes(string sortField)
+        {
+            throw new NotImplementedException();
+        }
+
         public ICompany NewCompany()
         {
             return new Company();

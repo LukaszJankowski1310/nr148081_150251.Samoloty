@@ -28,7 +28,9 @@ namespace nr148081_150251.Samoloty.Web.Mapper
 
         private void MapCompanies()
         {
-            CreateMap<ICompany, CompanyViewModel>();          
+            CreateMap<ICompany, CompanyViewModel>()
+                .ReverseMap()
+                .ForMember(x => x.Id, _ => _.UseDestinationValue());          
             CreateMap<ICompany, EntityViewModel>();
         }
 

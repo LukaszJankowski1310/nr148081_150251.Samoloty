@@ -36,9 +36,16 @@ namespace nr148081_150251.Samoloty.BL
             return dao.GetCompanies();
         }
 
+
+
         public IEnumerable<IPlane> GetPlanes()
         {
             return dao.GetPlanes();
+        }
+
+        public IEnumerable<IPlane> GetPlanes(string sortField)
+        {
+            return dao.GetPlanes(sortField);
         }
 
         public ICompany NewCompany()

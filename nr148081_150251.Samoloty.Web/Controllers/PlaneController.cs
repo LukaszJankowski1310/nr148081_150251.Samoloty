@@ -6,6 +6,7 @@ using nr148081_150251.Samoloty.Core;
 using nr148081_150251.Samoloty.Interfaces;
 using nr148081_150251.Samoloty.Web.Helpers;
 using nr148081_150251.Samoloty.Web.Models;
+using nr148081_150251.Samoloty.Web.Models.Company;
 using nr148081_150251.Samoloty.Web.Models.Plane;
 using System.Diagnostics;
 
@@ -22,11 +23,23 @@ namespace nr148081_150251.Samoloty.Web.Controllers
             _mapper = mapper;
         }
 
-        public IActionResult Index(string sortField)
+        public IActionResult Index(string? valueFilter, string? fieldSort, SortDirection? directionSort)
         {
-            var planes = _logic.GetPlanes();
+            var planes = _logic.GetPlanes();    
             IEnumerable<PlaneViewModel> planesViewModel = new List<PlaneViewModel>();
             _mapper.Map(planes, planesViewModel);
+
+
+            if (valueFilter != null)
+            {
+                planesViewModel = planesViewModel.Where(x => x.Model.Contains(valueFilter));
+            }
+
+            planesViewModel = planesViewModel.Sort(fieldSort, directionSort);
+
+            ViewBag.SortFields = ViewModelsHelper.GetSelectListItems<PlaneViewModel>();
+            ViewBag.ValueFilter = valueFilter;
+
             return View(planesViewModel);
         }
 

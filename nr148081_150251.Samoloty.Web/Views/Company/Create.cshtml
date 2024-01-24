@@ -1,0 +1,22 @@
+﻿@using nr148081_150251.Samoloty.Web.Helpers;
+@using nr148081_150251.Samoloty.Web.Models.Company;
+
+@model CompanyViewModel
+@{
+    ViewData["Title"] = "Producenci / Dodaj";
+}
+
+
+<div class="container mt-4">
+    <h2>Nowy producent</h2>
+
+    <form asp-action="Create" method="post">
+
+        @Html.Partial("CreateOrEdit", Model)
+
+        <button type="submit" class="btn btn-primary">Zapisz zmiany</button>
+        <a asp-action="Index" class="btn btn-secondary">Powrót</a>
+    </form>
+</div>
+
+

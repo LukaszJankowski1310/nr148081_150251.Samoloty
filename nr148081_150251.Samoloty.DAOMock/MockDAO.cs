@@ -15,9 +15,9 @@ namespace nr148081_150251.Samoloty.DAOMock
             {
                 new Company() {Name = "Name1", Year = 2001, Id = ++idCompany },
                 new Company() {Name = "Name2", Year = 2011, Id = ++idCompany },
-                new Company() {Name = "Name3", Year = 2011, Id = ++idCompany },
-                new Company() {Name = "Name4", Year = 2011, Id = ++idCompany },
-                new Company() {Name = "Name5", Year = 2011, Id = ++idCompany },
+                new Company() {Name = "Name3", Year = 2011, Description="Firma Boża3", Id = ++idCompany },
+                new Company() {Name = "Name4", Year = 2011, Description="Luftwaffe", Id = ++idCompany },
+                new Company() {Name = "Name5", Year = 2011, Description="Firma Boża4", Id = ++idCompany },
             };
 
             _planeList = new List<IPlane>()
@@ -31,6 +31,12 @@ namespace nr148081_150251.Samoloty.DAOMock
 
         public void DeleteCompany(ICompany company)
         {
+            var plane = _planeList.FirstOrDefault(x => x.Company.Id == company.Id);
+            if (plane != null)
+            {
+                throw new Exception("Nie można usunąc, ponieważ istnieje samolot wyprodukowany przez tego producenta");
+            }
+
             _companyList.Remove(company);
         }
 
@@ -57,6 +63,26 @@ namespace nr148081_150251.Samoloty.DAOMock
         public IEnumerable<IPlane> GetPlanes()
         {
             return _planeList;
+        }
+
+        public IEnumerable<IPlane> GetPlanes(string sortField)
+        {
+            switch(sortField)
+            {
+                case "Model":
+                    return _planeList.OrderBy(x => x.Model);
+                    
+                case "Typ":
+                    return _planeList.OrderBy(x => x.Type); 
+                    
+                case "CompanyName":
+                    return _planeList.OrderBy(x => x.Company.Name);
+                    
+                case "MaximumSpeed":
+                    return _planeList.OrderBy(x => x.MaximumSpeed);
+                    
+                default: return _planeList;
+            }
         }
 
         public ICompany NewCompany()
@@ -90,5 +116,7 @@ namespace nr148081_150251.Samoloty.DAOMock
         {
             _planeList.Add(plane);
         }
+
+     
     }
 }

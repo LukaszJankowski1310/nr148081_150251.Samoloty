@@ -1,22 +1,25 @@
 ﻿@using nr148081_150251.Samoloty.Web.Helpers;
-@using nr148081_150251.Samoloty.Web.Models.Plane
+@using nr148081_150251.Samoloty.Web.Models.Company;
 
-@model IEnumerable<PlaneViewModel>
+@model IEnumerable<CompanyViewModel>
 @{
-    ViewData["Title"] = "Samoloty";
+    ViewData["Title"] = "Producenci";
 
     var sortFields = (List<SelectListItem>)ViewBag.SortFields;
     var sortDirections = EnumHelper.GetEnumSelectList<SortDirection>();
     var valueFilter = (string)ViewBag.ValueFilter;
+
 }
 
 <div class="container mt-4">
     <div class="row">
         <div class="col">
-            <h2>Samoloty</h2>
+            <h2>Producenci</h2>
+
+
         </div>
 
-        @using (Html.BeginForm("", "Plane", FormMethod.Get, new { @class = "form-inline" }))
+        @using (Html.BeginForm("", "Company", FormMethod.Get, new { @class = "form-inline" }))
         {
             <fieldset class="form-group">
 
@@ -31,7 +34,7 @@
                 </div>
 
                 <div class="form-group">
-                    @Html.Label("valueFilter", "Model zawiera:", new { @class = "control-label" })
+                    @Html.Label("valueFilter", "Nazwa zawiera:", new { @class = "control-label" })
                     @Html.TextBox("valueFilter", valueFilter, new { @class = "form-control" })
                 </div>
 
@@ -39,30 +42,36 @@
             </fieldset>
         }
 
+        @if (ViewBag.ErrorMessage != null)
+        {
+            <div class="alert alert-danger" role="alert">
+                @ViewBag.ErrorMessage
+            </div>
+        }
+
+
     </div>
     <table class="table table-striped">
         <thead class="thead-dark">
             <tr>
-                <th>@Html.DisplayNameFor(x => x.Model)</th>              
-                <th>@Html.DisplayNameFor(x => x.Type)</th>
-                <th>@Html.DisplayNameFor(x => x.CompanyName)</th>
-                <th>@Html.DisplayNameFor(x => x.MaximumSpeed)</th>
+                <th>@Html.DisplayNameFor(x => x.Name)</th>
+                <th>@Html.DisplayNameFor(x => x.Year)</th>
+                <th>@Html.DisplayNameFor(x => x.Description)</th>
                 <th>Akcja</th>
             </tr>
         </thead>
         <tbody>
-            @foreach (var plane in Model)
+            @foreach (var company in Model)
             {
                 <tr>
-                    <td>@plane.Model</td>
-                    <td>@plane.Type.GetDisplayName()</td>
-                    <td>@plane.CompanyName</td>
-                    <td>@plane.MaximumSpeed</td>
+                    <td>@company.Name</td>
+                    <td>@company.Year</td>
+                    <td>@company.Description</td>  
                     <td>
                         <div class="btn-group">
-                            <a class="btn btn-primary btn-sm" asp-action="Edit" asp-route-id="@plane.Id">Edytuj</a>
+                            <a class="btn btn-primary btn-sm" asp-action="Edit" asp-route-id="@company.Id">Edytuj</a>
                             <span style="margin-left: 5px;"></span>
-                            <form asp-action="Delete" asp-route-id="@plane.Id" method="post" onsubmit="return confirm('Czy napewno chcesz usunąc ten samolot');">
+                            <form asp-action="Delete" asp-route-id="@company.Id" method="post" onsubmit="return confirm('Czy napewno chcesz usunąc tego producenta');">
                                 <input type="hidden" name="_method" value="DELETE" />
                                 <button type="submit" class="btn btn-danger btn-sm">Usuń</button>
                             </form>
@@ -75,8 +84,10 @@
 
 
     <div class="col text-right">
-        <a class="btn btn-success" asp-action="Create">Dodaj nowy samolot</a>
+        <a class="btn btn-success" asp-action="Create">Dodaj nowego producenta</a>
     </div>
+
+
 </div>
 
 

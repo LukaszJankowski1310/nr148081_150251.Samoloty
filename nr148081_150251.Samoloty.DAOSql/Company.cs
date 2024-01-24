@@ -7,5 +7,6 @@ namespace nr148081_150251.Samoloty.DAOSql
         public int Id { get; set; }
         public string Name { get; set; }
         public int Year { get; set; }
+        public string Description { get ; set; }
     }
 }
