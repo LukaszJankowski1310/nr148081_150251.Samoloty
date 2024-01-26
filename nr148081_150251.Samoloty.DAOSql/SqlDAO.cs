@@ -15,6 +15,12 @@ namespace nr148081_150251.Samoloty.DAOSql
 
         public void DeleteCompany(ICompany company)
         {
+            var plane = _dbContext.Planes.FirstOrDefault(x => x.Company.Id == company.Id);
+            if (plane != null)
+            {
+                throw new Exception("Nie można usunąc, ponieważ istnieje samolot wyprodukowany przez tego producenta");
+            }
+
             _dbContext.Companies.Remove((Company) company);
         }
 

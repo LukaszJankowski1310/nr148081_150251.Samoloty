@@ -23,7 +23,7 @@ namespace nr148081_150251.Samoloty.Web.Helpers
                 .Select(enumValue => new SelectListItem
                 {
                     Value = enumValue.ToString(),
-                    Text = enumValue.GetDisplayName() // Use the GetDisplayName extension method to get a display name if available
+                    Text = enumValue.GetDisplayName()
                 })
                 .ToList();
         }

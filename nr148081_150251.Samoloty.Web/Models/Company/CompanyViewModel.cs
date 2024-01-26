@@ -4,7 +4,10 @@ namespace nr148081_150251.Samoloty.Web.Models.Company
 {
     public class CompanyViewModel
     {
-        public int Id { get; set; }
+        public int Id { 
+            get; 
+            set; 
+        }
 
         [Display(Name = "Nazwa")]
         [Required(ErrorMessage = "Pole 'Nazwa' jest wymagane.")]

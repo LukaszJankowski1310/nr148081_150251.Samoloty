@@ -15,9 +15,9 @@ namespace nr148081_150251.Samoloty.DAOMock
             {
                 new Company() {Name = "Name1", Year = 2001, Id = ++idCompany },
                 new Company() {Name = "Name2", Year = 2011, Id = ++idCompany },
-                new Company() {Name = "Name3", Year = 2011, Description="Firma Boża3", Id = ++idCompany },
-                new Company() {Name = "Name4", Year = 2011, Description="Luftwaffe", Id = ++idCompany },
-                new Company() {Name = "Name5", Year = 2011, Description="Firma Boża4", Id = ++idCompany },
+                new Company() {Name = "Name3", Year = 2011, Description="Abudabi Airlanes", Id = ++idCompany },
+                new Company() {Name = "Name4", Year = 2011, Description="LOT", Id = ++idCompany },
+                new Company() {Name = "Name5", Year = 2011, Description="American Airlanes", Id = ++idCompany },
             };
 
             _planeList = new List<IPlane>()
