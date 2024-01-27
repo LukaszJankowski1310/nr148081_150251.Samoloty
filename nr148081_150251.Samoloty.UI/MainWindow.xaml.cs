@@ -1,13 +1,7 @@
-﻿using System.Text;
+﻿using nr148081_150251.Samoloty.BL;
+using nr148081_150251.Samoloty.Core;
+using nr148081_150251.Samoloty.UI.ViewModel;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace nr148081_150251.Samoloty.UI
 {
@@ -18,7 +12,18 @@ namespace nr148081_150251.Samoloty.UI
     {
         public MainWindow()
         {
+
+            Logic logic = new Logic("nr148081_150251.Samoloty.DAOMock.dll");
+          
             InitializeComponent();
+
+            PlanesTab.DataContext = new CompanyListViewModel(logic);
+
+            PlanesTab.DataContext = new PlaneListViewModel(logic);
+
+            CompaniesComboBox.ItemsSource = logic.GetCompanies();
+            TypeComboBox.ItemsSource = Enum.GetValues(typeof(PlaneType));
+
         }
     }
 }
