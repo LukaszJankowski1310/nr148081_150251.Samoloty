@@ -1,0 +1,23 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net6.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\nr148081_150251.Samoloty.BL\nr148081_150251.Samoloty.BL.csproj" />
+    <ProjectReference Include="..\nr148081_150251.Samoloty.Core\nr148081_150251.Samoloty.Core.csproj" />
+    <ProjectReference Include="..\nr148081_150251.Samoloty.DAOMock\nr148081_150251.Samoloty.DAOMock.csproj" />
+    <ProjectReference Include="..\nr148081_150251.Samoloty.Interfaces\nr148081_150251.Samoloty.Interfaces.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Command\" />
+    <Folder Include="ViewModel\" />
+  </ItemGroup>
+
+</Project>
