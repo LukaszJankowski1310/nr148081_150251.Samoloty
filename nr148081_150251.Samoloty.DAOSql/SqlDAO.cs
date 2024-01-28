@@ -61,12 +61,19 @@ namespace nr148081_150251.Samoloty.DAOSql
 
         public void SaveCompany(ICompany company)
         {
-            _dbContext.Companies.Add((Company) company);
+            if (GetCompany(company.Id) == null)
+            {
+                _dbContext.Companies.Add((Company) company);
+            }
         }
 
         public void SavePlane(IPlane plane)
         {
-            _dbContext.Planes.Add((Plane) plane);
+            if (GetPlane(plane.Id) == null)
+            {
+                _dbContext.Planes.Add((Plane) plane);
+            }
+
         }
 
         public void Commit()

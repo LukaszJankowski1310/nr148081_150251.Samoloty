@@ -16,6 +16,21 @@ namespace nr148081_150251.Samoloty.UI.ViewModel
         private ListCollectionView _view;
         public string FilterValue { get; set; }
 
+        private string _errorMessagePlanes;
+
+        public string ErrorMessagePlanes
+        {
+            get { return _errorMessagePlanes; }
+            set
+            {
+                if (_errorMessagePlanes != value)
+                {
+                    _errorMessagePlanes = value;
+                    RaisePropertyChanged(nameof(ErrorMessagePlanes));
+                }
+            }
+        }
+
         private PlaneViewModel _selectedPlane;
         public PlaneViewModel SelectedPlane
         {
@@ -80,19 +95,41 @@ namespace nr148081_150251.Samoloty.UI.ViewModel
             IPlane plane = _logic.NewPlane();
             PlaneViewModel planeViewModel = new PlaneViewModel(plane);
             Planes.Add(planeViewModel);
+            ErrorMessagePlanes = "";
         }
 
         private void SaveChanges()
         {
             if (SelectedPlane == null) return;
-            _logic.SavePlane(SelectedPlane.Plane);
+            try
+            {
+                _logic.SavePlane(SelectedPlane.Plane);
+                _logic.Commit();
+                ErrorMessagePlanes = "";
+            }
+            catch (Exception ex)
+            {
+                ErrorMessagePlanes = ex.Message;
+            }
         }
 
         private void DeletePlane()
         {
             if (SelectedPlane == null) return;
-            _logic.DeletePlane(SelectedPlane.Plane);
-            Planes.Remove(SelectedPlane);
+            
+            try
+            {
+                _logic.DeletePlane(SelectedPlane.Plane);
+                Planes.Remove(SelectedPlane);
+                _logic.Commit();
+                ErrorMessagePlanes = "";
+            }
+            catch (Exception ex)
+            {
+                ErrorMessagePlanes = ex.Message;
+            }
+            
+       
         }
 
         private void FilterGrid()
@@ -105,6 +142,7 @@ namespace nr148081_150251.Samoloty.UI.ViewModel
             {
                 _view.Filter = (plane) => ((PlaneViewModel)plane).Model.Contains(FilterValue);
             }
+            ErrorMessagePlanes = "";
         }
 
     }

@@ -50,5 +50,15 @@ namespace nr148081_150251.Samoloty.UI.ViewModel
             }
         }
 
+        public string Description
+        {
+            get => Company.Description;
+            set
+            {
+                Company.Description = value;
+                RaisePropertyChanged(nameof(Description));
+            }
+        }
+
     }
 }

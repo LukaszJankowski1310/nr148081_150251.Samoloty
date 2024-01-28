@@ -13,7 +13,22 @@ namespace nr148081_150251.Samoloty.UI.ViewModel
         private Logic _logic;
 
         private ListCollectionView _view;
-        public string FilterValue {  get; set; }
+        public string FilterValue { get; set; }
+
+        private string _errorMessage;
+
+        public string ErrorMessage
+        {
+            get { return _errorMessage; }
+            set
+            {
+                if (_errorMessage != value)
+                {
+                    _errorMessage = value;
+                    RaisePropertyChanged(nameof(ErrorMessage));
+                }
+            }
+        }
 
         private CompanyViewModel _selectedCompany;
         public CompanyViewModel SelectedCompany
@@ -21,22 +36,10 @@ namespace nr148081_150251.Samoloty.UI.ViewModel
             get => _selectedCompany;
             set
             {
-                _selectedCompany = value;
-                //EditedCompany = value;
+                _selectedCompany = value;      
                 RaisePropertyChanged(nameof(SelectedCompany));
             }
         }
-
-        //private CompanyViewModel _editedCompany;
-        //public CompanyViewModel EditedCompany
-        //{
-        //    get => _editedCompany;
-        //    set
-        //    {
-        //        _editedCompany = value;
-        //        RaisePropertyChanged(nameof(EditedCompany));
-        //    }
-        //}
 
         public CompanyListViewModel(Logic logic)
         {   
@@ -63,23 +66,55 @@ namespace nr148081_150251.Samoloty.UI.ViewModel
 
         private void AddCompany()
         {
-            ICompany company = _logic.NewCompany();
-            CompanyViewModel companyViewModel = new CompanyViewModel(company);
-            Companies.Add(companyViewModel);
-            SelectedCompany = companyViewModel;
+            try
+            {
+                ICompany company = _logic.NewCompany();
+                CompanyViewModel companyViewModel = new CompanyViewModel(company);
+                Companies.Add(companyViewModel);
+                SelectedCompany = companyViewModel;
+                ErrorMessage = "";
+            }
+            catch (Exception ex)
+            {
+                ErrorMessage = ex.Message;
+            }
         }
 
         private void SaveChanges()
         {
-            _logic.SaveCompany(SelectedCompany.Company);
+            if (SelectedCompany == null) return;
+            try
+            {
+                _logic.SaveCompany(SelectedCompany.Company);
+                _logic.Commit();
+                ErrorMessage = "";
+            }
+            catch (Exception ex)
+            {
+                ErrorMessage = ex.Message;
+            }
+
+        
         }
 
         private void DeleteCompany()
         {
-            _logic.DeleteCompany(SelectedCompany.Company);
-            Companies.Remove(SelectedCompany);
-        }
+            if (SelectedCompany == null) return;
+            try
+            {
+                _logic.DeleteCompany(SelectedCompany.Company);
+                Companies.Remove(SelectedCompany);
 
+                _logic.Commit();
+                ErrorMessage = "";
+            }
+            catch (Exception ex)
+            {
+                ErrorMessage = ex.Message;
+            }
+
+         
+        }
         private void FilterGrid()
         {
             if (string.IsNullOrEmpty(FilterValue))
@@ -90,6 +125,7 @@ namespace nr148081_150251.Samoloty.UI.ViewModel
             {
                 _view.Filter = (company) => ((CompanyViewModel)company).Name.Contains(FilterValue);
             }
+            ErrorMessage = "";
         }
 
         private RelayCommand _filterCommand;
