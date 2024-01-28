@@ -17,8 +17,8 @@ namespace nr148081_150251.Samoloty.UI
 
         public MainWindow()
         {
-
-            _logic = new Logic("nr148081_150251.Samoloty.DAOSql.dll");
+            string? libraryName = System.Configuration.ConfigurationManager.AppSettings["DBLibraryName"];
+            _logic = new Logic(libraryName);
             if (_logic == null) throw new Exception("Nie znaleziono bibliteki");
 
             _companyListViewModel = new CompanyListViewModel(_logic);
